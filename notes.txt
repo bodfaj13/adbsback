@@ -1,0 +1,9 @@
+Emergency.findOneAndUpdate(callId, caseDetails).then(function(data){
+  res.send(true)
+  console.log(data)
+}).catch(function(error){
+  console.log(error.message);
+  res.status(400).send({
+    error: "Something went wrong"
+  });
+});

@@ -1,0 +1,91 @@
+router.use(function(req, res, next) {
+  // check header or url parameters or post parameters for token
+  var token = req.headers["x-auth"];
+  // decode token
+  if (token) {
+    // verifies secret and checks exp
+    try {
+      var decoded = jwt.verify(token, appdetails.jwtSecret);
+      req.decoded = decoded;
+      next();
+    } catch (err) {
+      return res.json({
+        success: false,
+        message: "Failed to authenticate token."
+      });
+    }
+  } else {
+    // if there is no token
+    // return an error
+    return res.status(403).send({
+      success: false,
+      message: "No token provided."
+    });
+  }
+});
+
+
+
+EG8i47Uaf4Bw+J2uyYrfASKOawx/YIJbJ2lkfVuF
+
+account sid: AC1fd3bba92b7b2d90b996003d044f726b
+auth token: 8e376e892fe0c4ae6f22fc6ccf1ed105
+phone number : +23414407054
+
+
+
+
+
+beforeEnter: (to, from, next) => {
+  var isAuth = store.state.isAdminLoggedIn
+  if (isAuth === false) {
+    console.log('access denied!')
+    next('/')
+  }
+  next()
+}
+
+
+bcrypt.hash(Details.newPass, 10, function(err, hash){
+              if(err)throw err;
+              data.password = hash;
+              data.save().then(function(){
+                console.log(data);
+                res.send({
+                  success: "Password Updated Successfully",
+                  entity: "AdminPassReset"
+                });
+              }).catch(function(error){
+                console.log(error.message);
+                res.status(400).send({
+                  error: "Something went wrong"
+                });
+              });
+          });
+
+
+
+      if (this.ambulancesLength < this.AmbNeeded) {
+        for (var i = this.ambulancesLength + 1; i >= 0; i--) {
+          this.ambChosen.push(this.$store.state.AvailAmb[i]._id)
+        }
+        console.log('fuck')
+      } else if (this.ambulancesLength > this.AmbNeeded) {
+        for (var x = this.AmbNeeded; x >= 0; x--) {
+          this.ambChosen.push(this.$store.state.AvailAmb[x]._id)
+        }
+        console.log('not less')
+      } else if (this.ambulancesLength === this.AmbNeeded) {
+        for (var y = this.AmbNeeded; y >= 0; y--) {
+          this.ambChosen.push(this.$store.state.AvailAmb[y]._id)
+        }
+        console.log('equal')
+      }
+
+
+
+
+      <label class="form-check-label" style="margin: 6px" :key="key">
+  <input type="checkbox" class="form-check-input" :value="car._id" v-model="ambChosen">
+  <button class="btn btn-primary ambBtn" data-toggle="modal" data-target="#clickOnAmb" @click="clickOnAmb(key)">Ambulance ID: {{car._id}}</button>
+</label>
