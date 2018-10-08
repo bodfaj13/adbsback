@@ -62,7 +62,7 @@ module.exports = {
     });
   },
   getTotalCasesNo(req, res, next){
-    Emergency.count({active: true}).then(function(data){
+    Emergency.count().then(function(data){
       res.send({
         data: data
       });
@@ -117,7 +117,7 @@ module.exports = {
     });
   },
   getTotalCases(req, res, next){
-    Emergency.find({active: true}).then(function(data){
+    Emergency.find().then(function(data){
       res.send({
         data: data
       });
@@ -129,6 +129,28 @@ module.exports = {
   },
   getActiveEmergency(req, res, next){
     Emergency.find({inSession: true}).then(function(data){
+      res.send({
+        data: data
+      });
+    }).catch(function(error){
+      res.status(400).send({
+        error: "Something went wrong"
+      });
+    });
+  },
+  getAllDrivers(req, res, nexxt){
+    Driver.find().then(function(data){
+      res.send({
+        data: data
+      });
+    }).catch(function(error){
+      res.status(400).send({
+        error: "Something went wrong"
+      });
+    });
+  },
+  getAllAmbulances(req, res, next){
+    Ambulance.find().then(function(data){
       res.send({
         data: data
       });

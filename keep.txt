@@ -89,3 +89,11 @@ bcrypt.hash(Details.newPass, 10, function(err, hash){
   <input type="checkbox" class="form-check-input" :value="car._id" v-model="ambChosen">
   <button class="btn btn-primary ambBtn" data-toggle="modal" data-target="#clickOnAmb" @click="clickOnAmb(key)">Ambulance ID: {{car._id}}</button>
 </label>
+
+
+// export default () => {
+//   return axios.create({
+//     baseURL: process.env.PORT ? 'https://adbsback.herokuapp.com/api' : 'http://localhost:3000/api/',
+//     headers: {'x-auth': store.state.token}
+//   })
+// }

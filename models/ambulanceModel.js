@@ -33,7 +33,7 @@ var ambulanceSchema = mongoose.Schema({
     name: String,
     file: String
   }],
-  createAt: {
+  createdAt: {
     type: String
   },
   updatedAt: {

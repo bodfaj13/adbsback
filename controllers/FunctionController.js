@@ -66,6 +66,16 @@ module.exports = {
       ambulanceId: ambulanceId
     };
 
+    for (var i = 0; i < ambulanceId.length; i++) {
+      Ambulance.findById(ambulanceId[i]).then(function(data){
+        data.isAvailable = false;
+        data.assignedCases.push(callId._id);
+        data.save().then(function(data){
+          console.log(data);
+        });
+      })
+    }
+
     Emergency.findById(callId._id).then(function(data){
       data.active = caseDetails.active;
       data.ambulanceRequired = caseDetails.ambulanceRequired;
@@ -74,7 +84,7 @@ module.exports = {
       data.inSession = caseDetails.inSession
       
       data.save().then(function(data){
-        console.log(data);
+        // console.log(data);
         res.send({
           success: "Case creaed successfully",
           entity: "Emergency"
@@ -153,6 +163,58 @@ module.exports = {
     .catch(function(error) {
       console.log(error);
       res.status(400).send(error);
+    });
+  },
+  releaseCase(req, res, next) {
+    var emergencyId = req.body.emergencyId;
+    var ambulanceId= req.body.ambulanceId;
+    var updatedAt = moment().format("dddd, MMMM Do YYYY, h:mm:ss a"); 
+
+    var callId = {
+      _id: emergencyId
+    };
+
+    var caseDetails = {
+      updatedAt: updatedAt,
+      active: false,
+      inSession: false,
+      ambulanceId: ambulanceId,
+      emergencyDelivered: true
+    };
+
+    for (var i = 0; i < ambulanceId.length; i++) {
+      Ambulance.findById(ambulanceId[i]).then(function(data){
+        data.isAvailable = true
+        data.assignedCases.push(callId._id);
+        data.save().then(function(data){
+          console.log(data);
+        });
+      })
+    }
+
+    Emergency.findById(callId._id).then(function(data){
+      data.active = caseDetails.active;
+      data.updatedAt = caseDetails.updatedAt;
+      data.inSession = caseDetails.inSession
+      data.emergencyDelivered = caseDetails.emergencyDelivered
+
+      data.save().then(function(data){
+        // console.log(data);
+        res.send({
+          success: "Case creaed successfully",
+          entity: "Emergency"
+        });
+      }).catch(function(error){
+        console.log(error.message);
+        res.status(400).send({
+          error: "Something went wrong"
+        });
+      });
+    }).catch(function(error){
+      console.log(error.message);
+      res.status(400).send({
+        error: "Something went wrong"
+      });
     });
   }
 };

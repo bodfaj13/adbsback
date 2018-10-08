@@ -35,6 +35,9 @@ router.post("/api/recordcallcase", FunctionController.recordCall);
 //emergency-to-case
 router.post("/api/createcase", FunctionController.callToCase);
 
+//releaseCase
+router.post("/api/releasecase", FunctionController.releaseCase);
+
 //user contact message
 router.post(
   "/api/usersendcontact",
@@ -77,6 +80,12 @@ router.get("/api/gettotalcases", DataController.getTotalCases);
 
 //get-active-emergency-
 router.get("/api/getactiveambulance", DataController.getActiveEmergency);
+
+//get all drivers
+router.get("/api/getalldrivers", DataController.getAllDrivers);
+
+//get all ambulances
+router.get("/api/getallambulances", DataController.getAllAmbulances);
 
 //route middleware to authenticate and check token
 router.use(function(req, res, next) {

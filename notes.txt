@@ -7,3 +7,7 @@ Emergency.findOneAndUpdate(callId, caseDetails).then(function(data){
     error: "Something went wrong"
   });
 });
+
+npm install vue-chartjs chart.js --save
+npm install --save vue-full-calendar 
+npm install -S vue-bootstrap-calendar

@@ -1,5 +1,4 @@
 var mongoose = require("../config/mongoose");
-var bcrypt = require("bcrypt");
 var Schema = mongoose.Schema;
 
 var driverSchema = mongoose.Schema({
@@ -26,9 +25,12 @@ var driverSchema = mongoose.Schema({
     default: false
   },
   createdBy: {
-    type: String
+    type: Schema.Types.ObjectId
   },
   createdAt: {
+    type: String
+  },
+  updatedAt: {
     type: String
   },
   address: {
